@@ -9,14 +9,36 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
-    
+class GameScene: SKScene, SKPhysicsContactDelegate {
+    var earth = SKSpriteNode()
+    var touchInProgress = false
+    var earthShield = SKSpriteNode()
+    let objectRelativeScale = CGFloat(0.0002)
+    let initialShieldOffset = CGFloat(-1.82)
+    let rotationAngle = CGFloat(M_PI / 32)
+    let rotationDuration = TimeInterval(3)
     
     override func didMove(to view: SKView) {
+        let earthTexture = SKTexture(imageNamed: "EarthFG.png")
+        let earthShieldTexture = SKTexture(imageNamed: "EarthShieldSingle.png")
+        earth = SKSpriteNode(texture: earthTexture)
+        earthShield = SKSpriteNode(texture: earthShieldTexture)
+        earth.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        earthShield.position = earth.position
+        earth.setScale(self.frame.size.width * objectRelativeScale)
+        earthShield.setScale(earth.xScale)
+        earthShield.zRotation = initialShieldOffset
+        earth.physicsBody = SKPhysicsBody()
+        self.addChild(earth)
+        self.addChild(earthShield)
+        //let shieldRotation = SKAction.rotate(byAngle: rotationAngle, duration: rotationDuration)
+        //let repeatedShieldAnimation = SKAction.repeatForever(shieldRotation)
         
-
     }
     
+    func toggleRotationClockwise(object: SKSpriteNode) {
+        object.zRotation -= rotationAngle
+    }
     
     func touchDown(atPoint pos : CGPoint) {
 
@@ -31,23 +53,27 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
- 
+        touchInProgress = true
+        //earthShield.run()
+        //earthShield.zRotation -= 0.1
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
-
+    
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        touchInProgress = false
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        //touchInProgress = false
     }
     
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        if touchInProgress {
+            toggleRotationClockwise(object: earthShield)
+        }
     }
 }

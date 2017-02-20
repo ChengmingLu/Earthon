@@ -15,6 +15,11 @@
 		04668E881E5AB200009D938C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04668E861E5AB200009D938C /* Main.storyboard */; };
 		04668E8A1E5AB200009D938C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04668E891E5AB200009D938C /* Assets.xcassets */; };
 		04668E8D1E5AB200009D938C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04668E8B1E5AB200009D938C /* LaunchScreen.storyboard */; };
+		04F93BAC1E5B55AD003CAFC8 /* EarthBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BA81E5B55AD003CAFC8 /* EarthBG.png */; };
+		04F93BAD1E5B55AD003CAFC8 /* EarthFG.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BA91E5B55AD003CAFC8 /* EarthFG.png */; };
+		04F93BAE1E5B55AD003CAFC8 /* EarthShieldDouble.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BAA1E5B55AD003CAFC8 /* EarthShieldDouble.png */; };
+		04F93BAF1E5B55AD003CAFC8 /* EarthShieldSingle.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BAB1E5B55AD003CAFC8 /* EarthShieldSingle.png */; };
+		04F93BB11E5B8513003CAFC8 /* Rock.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BB01E5B8513003CAFC8 /* Rock.PNG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,11 @@
 		04668E891E5AB200009D938C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04668E8C1E5AB200009D938C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04668E8E1E5AB200009D938C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04F93BA81E5B55AD003CAFC8 /* EarthBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthBG.png; sourceTree = "<group>"; };
+		04F93BA91E5B55AD003CAFC8 /* EarthFG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthFG.png; sourceTree = "<group>"; };
+		04F93BAA1E5B55AD003CAFC8 /* EarthShieldDouble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthShieldDouble.png; sourceTree = "<group>"; };
+		04F93BAB1E5B55AD003CAFC8 /* EarthShieldSingle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthShieldSingle.png; sourceTree = "<group>"; };
+		04F93BB01E5B8513003CAFC8 /* Rock.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rock.PNG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +79,11 @@
 				04668E891E5AB200009D938C /* Assets.xcassets */,
 				04668E8B1E5AB200009D938C /* LaunchScreen.storyboard */,
 				04668E8E1E5AB200009D938C /* Info.plist */,
+				04F93BA81E5B55AD003CAFC8 /* EarthBG.png */,
+				04F93BA91E5B55AD003CAFC8 /* EarthFG.png */,
+				04F93BAA1E5B55AD003CAFC8 /* EarthShieldDouble.png */,
+				04F93BAB1E5B55AD003CAFC8 /* EarthShieldSingle.png */,
+				04F93BB01E5B8513003CAFC8 /* Rock.PNG */,
 			);
 			path = Unprotected;
 			sourceTree = "<group>";
@@ -133,11 +148,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F93BAE1E5B55AD003CAFC8 /* EarthShieldDouble.png in Resources */,
 				04668E881E5AB200009D938C /* Main.storyboard in Resources */,
 				04668E7F1E5AB200009D938C /* GameScene.sks in Resources */,
 				04668E8A1E5AB200009D938C /* Assets.xcassets in Resources */,
+				04F93BB11E5B8513003CAFC8 /* Rock.PNG in Resources */,
 				04668E8D1E5AB200009D938C /* LaunchScreen.storyboard in Resources */,
 				04668E811E5AB200009D938C /* Actions.sks in Resources */,
+				04F93BAD1E5B55AD003CAFC8 /* EarthFG.png in Resources */,
+				04F93BAF1E5B55AD003CAFC8 /* EarthShieldSingle.png in Resources */,
+				04F93BAC1E5B55AD003CAFC8 /* EarthBG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +332,7 @@
 				04668E931E5AB200009D938C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
