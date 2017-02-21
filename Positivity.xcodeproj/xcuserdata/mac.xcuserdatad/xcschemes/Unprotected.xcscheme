@@ -17,7 +17,7 @@
                BlueprintIdentifier = "04668E781E5AB1FF009D938C"
                BuildableName = "Unprotected.app"
                BlueprintName = "Unprotected"
-               ReferencedContainer = "container:Unprotected.xcodeproj">
+               ReferencedContainer = "container:Positivity.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "04668E781E5AB1FF009D938C"
             BuildableName = "Unprotected.app"
             BlueprintName = "Unprotected"
-            ReferencedContainer = "container:Unprotected.xcodeproj">
+            ReferencedContainer = "container:Positivity.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "04668E781E5AB1FF009D938C"
             BuildableName = "Unprotected.app"
             BlueprintName = "Unprotected"
-            ReferencedContainer = "container:Unprotected.xcodeproj">
+            ReferencedContainer = "container:Positivity.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "04668E781E5AB1FF009D938C"
             BuildableName = "Unprotected.app"
             BlueprintName = "Unprotected"
-            ReferencedContainer = "container:Unprotected.xcodeproj">
+            ReferencedContainer = "container:Positivity.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

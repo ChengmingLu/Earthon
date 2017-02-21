@@ -15,6 +15,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var earth = SKSpriteNode()
     var earthShield = SKSpriteNode()
     var startButton = SKSpriteNode()
+    var timerLabel = SKLabelNode()
+    var scoreLabel = SKLabelNode()
+    var separatorLabel = SKLabelNode()
     //var rock = SKSpriteNode()
     var rockTexture = SKTexture()
     var timerNode = SKNode()
@@ -29,6 +32,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let initialShieldOffset = CGFloat(-1.82)
     let rotationAngle = CGFloat(M_PI / 32)
     let rotationDuration = TimeInterval(3)
+    let timerLabelYPosOffset = CGFloat(6)
+    let scoreLabelYPosOffset = CGFloat(-40)
+    let separatorLabelYPosOffset = CGFloat(-3)
     
     enum CollisionType: UInt32 {
         case Rock = 1
@@ -53,13 +59,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let earthShieldTexture = SKTexture(imageNamed: "EarthShieldSingle.png")
         let startButtonTexture = SKTexture(imageNamed: "StartButton.png")
         rockTexture = SKTexture(imageNamed: "Rock.png")
+        
         earth = SKSpriteNode(texture: earthTexture)
         earthShield = SKSpriteNode(texture: earthShieldTexture)
         startButton = SKSpriteNode(texture: startButtonTexture)
         
+        timerLabel = SKLabelNode(fontNamed: "AppleSDGothicNeo-Regular")
+        scoreLabel = SKLabelNode(fontNamed: "AppleSDGothicNeo-Regular")
+        separatorLabel = SKLabelNode(fontNamed: "AppleSDGothicNeo-Bold")
+        timerLabel.text = "60"
+        scoreLabel.text = "0"
+        separatorLabel.text = "___"
+        
         earth.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        earth.zPosition = 4
         earthShield.position = earth.position
+        earthShield.zPosition = 3
         startButton.position = earth.position
+        startButton.zPosition = 5
+        timerNode.zPosition = -1
+        timerLabel.position = earth.position
+        timerLabel.position.y += timerLabelYPosOffset
+        timerLabel.zPosition = 6
+        scoreLabel.position = earth.position
+        scoreLabel.position.y += scoreLabelYPosOffset
+        scoreLabel.zPosition = 6
+        separatorLabel.position = earth.position
+        separatorLabel.position.y += separatorLabelYPosOffset
+        separatorLabel.zPosition = 6
         earth.setScale(self.frame.size.width * objectRelativeScale)
         earthShield.setScale(earth.xScale)
         startButton.setScale(earth.xScale)
@@ -83,7 +110,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //self.frame:width = 750, height = 1334
         
-        
+        print(timerLabel.position)
+        print(timerLabel.fontName!)
+        print(timerLabel.fontSize)
         //testing
         //self.addChild(testEarth)
         //finished testing
@@ -211,6 +240,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameInProgress = true
             self.addChild(earthShield)
             self.addChild(timerNode)
+            self.addChild(scoreLabel)
+            self.addChild(separatorLabel)
+            self.addChild(timerLabel)
             startButton.removeFromParent()
             //gameStarts()
         }
