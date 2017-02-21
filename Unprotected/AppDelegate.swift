@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Unprotected
+//  Earthon
 //
 //  Created by Fumlar on 2017-02-20.
 //  Copyright © 2017 Fumlar. All rights reserved.

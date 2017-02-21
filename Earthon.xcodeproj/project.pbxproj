@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04668E791E5AB200009D938C /* Unprotected.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unprotected.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04668E791E5AB200009D938C /* Earthon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Earthon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04668E7C1E5AB200009D938C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04668E7E1E5AB200009D938C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		04668E801E5AB200009D938C /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 		04668E701E5AB1FF009D938C = {
 			isa = PBXGroup;
 			children = (
-				04668E7B1E5AB200009D938C /* Unprotected */,
+				04668E7B1E5AB200009D938C /* Earthon */,
 				04668E7A1E5AB200009D938C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,12 +64,12 @@
 		04668E7A1E5AB200009D938C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04668E791E5AB200009D938C /* Unprotected.app */,
+				04668E791E5AB200009D938C /* Earthon.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		04668E7B1E5AB200009D938C /* Unprotected */ = {
+		04668E7B1E5AB200009D938C /* Earthon */ = {
 			isa = PBXGroup;
 			children = (
 				04668E7C1E5AB200009D938C /* AppDelegate.swift */,
@@ -88,15 +88,16 @@
 				04F2ADEA1E5CD597003F469F /* StartButton.png */,
 				048DA10B1E5BC60500CB3AC2 /* Rock.png */,
 			);
+			name = Earthon;
 			path = Unprotected;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		04668E781E5AB1FF009D938C /* Unprotected */ = {
+		04668E781E5AB1FF009D938C /* Earthon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04668E911E5AB200009D938C /* Build configuration list for PBXNativeTarget "Unprotected" */;
+			buildConfigurationList = 04668E911E5AB200009D938C /* Build configuration list for PBXNativeTarget "Earthon" */;
 			buildPhases = (
 				04668E751E5AB1FF009D938C /* Sources */,
 				04668E761E5AB1FF009D938C /* Frameworks */,
@@ -106,9 +107,9 @@
 			);
 			dependencies = (
 			);
-			name = Unprotected;
+			name = Earthon;
 			productName = Unprotected;
-			productReference = 04668E791E5AB200009D938C /* Unprotected.app */;
+			productReference = 04668E791E5AB200009D938C /* Earthon.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -128,7 +129,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 04668E741E5AB1FF009D938C /* Build configuration list for PBXProject "Positivity" */;
+			buildConfigurationList = 04668E741E5AB1FF009D938C /* Build configuration list for PBXProject "Earthon" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -141,7 +142,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				04668E781E5AB1FF009D938C /* Unprotected */,
+				04668E781E5AB1FF009D938C /* Earthon */,
 			);
 		};
 /* End PBXProject section */
@@ -298,7 +299,7 @@
 				DEVELOPMENT_TEAM = MN3T7WEAXR;
 				INFOPLIST_FILE = Unprotected/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Unprotected;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -311,7 +312,7 @@
 				DEVELOPMENT_TEAM = MN3T7WEAXR;
 				INFOPLIST_FILE = Unprotected/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Unprotected;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -320,7 +321,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04668E741E5AB1FF009D938C /* Build configuration list for PBXProject "Positivity" */ = {
+		04668E741E5AB1FF009D938C /* Build configuration list for PBXProject "Earthon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04668E8F1E5AB200009D938C /* Debug */,
@@ -329,7 +330,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04668E911E5AB200009D938C /* Build configuration list for PBXNativeTarget "Unprotected" */ = {
+		04668E911E5AB200009D938C /* Build configuration list for PBXNativeTarget "Earthon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04668E921E5AB200009D938C /* Debug */,
