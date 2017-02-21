@@ -32,7 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let earthTexture = SKTexture(imageNamed: "EarthFG.png")
         let earthShieldTexture = SKTexture(imageNamed: "EarthShieldSingle.png")
-        let rockTexture = SKTexture(imageNamed: "Rock.png")
+        let rockTexture = SKTexture(imageNamed: "Asteroid.png")
         earth = SKSpriteNode(texture: earthTexture)
         earthShield = SKSpriteNode(texture: earthShieldTexture)
         rock = SKSpriteNode(texture: rockTexture)
