@@ -37,7 +37,6 @@
 		04F93BA91E5B55AD003CAFC8 /* EarthFG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthFG.png; sourceTree = "<group>"; };
 		04F93BAA1E5B55AD003CAFC8 /* EarthShieldDouble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthShieldDouble.png; sourceTree = "<group>"; };
 		04F93BAB1E5B55AD003CAFC8 /* EarthShieldSingle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthShieldSingle.png; sourceTree = "<group>"; };
-		04F93BB01E5B8513003CAFC8 /* Rock.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rock.PNG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +82,6 @@
 				04F93BA91E5B55AD003CAFC8 /* EarthFG.png */,
 				04F93BAA1E5B55AD003CAFC8 /* EarthShieldDouble.png */,
 				04F93BAB1E5B55AD003CAFC8 /* EarthShieldSingle.png */,
-				04F93BB01E5B8513003CAFC8 /* Rock.PNG */,
 			);
 			path = Unprotected;
 			sourceTree = "<group>";
@@ -152,7 +150,6 @@
 				04668E881E5AB200009D938C /* Main.storyboard in Resources */,
 				04668E7F1E5AB200009D938C /* GameScene.sks in Resources */,
 				04668E8A1E5AB200009D938C /* Assets.xcassets in Resources */,
-				04F93BB11E5B8513003CAFC8 /* Rock.PNG in Resources */,
 				04668E8D1E5AB200009D938C /* LaunchScreen.storyboard in Resources */,
 				04668E811E5AB200009D938C /* Actions.sks in Resources */,
 				04F93BAD1E5B55AD003CAFC8 /* EarthFG.png in Resources */,
