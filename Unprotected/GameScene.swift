@@ -50,7 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //timerNode.zPosition = -1
         //testing
         //let testEarth = SKShapeNode(circleOfRadius: 10)
-        //testEarth.fillColor = SKColor.green
+        //testEarth.fillColor = SKColor.blue
         //testEarth.strokeColor = SKColor.clear
         //testEarth.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         //finished testing
@@ -134,7 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let velocity = CGVector(dx: (self.frame.midX - Pos.x) * rockVelocityScale, dy: (self.frame.midY - Pos.y) * rockVelocityScale)
         rock.physicsBody!.velocity = velocity
         self.addChild(rock)
-        print("spawned a new rock at \(Pos)) with velocity of \(velocity)")
+        //print("spawned a new rock at \(Pos)) with velocity of \(velocity)")
         //object.position.x += 30
         //self.addChild(object)
         //print(object.physicsBody!.velocity)
@@ -174,10 +174,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == CollisionType.Shield.rawValue {
-            print("blocked by shield")
+            //print("blocked by shield")
         }
         if contact.bodyA.categoryBitMask == CollisionType.Earth.rawValue {
-            print("absorbed by earth")
+            //print("absorbed by earth")
         }
         contact.bodyB.node?.removeFromParent()
         //spawnObjectWithVelocity(originalObject: rock, initialPos: CGPoint(x: self.frame.midX - self.frame.width / 2, y: self.frame.midY - self.frame.height / 2))
