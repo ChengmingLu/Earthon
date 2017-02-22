@@ -21,15 +21,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel = SKLabelNode()
     var separatorLabel = SKLabelNode()
     var centerPoint = CGPoint()
-
     var rockTexture = SKTexture()
     var timerNode = SKNode()
     var rockVelocity = CGFloat()
     var halfFrameDiagnal = CGFloat()
     var dynamicDifficulty = CGFloat()
-    var timer = Int(10)
+    var timer = Int()
     var score = Int(0)
     var diagnalAngle = CGFloat()
+    var totalTimeAllowed = 10
     let objectRelativeScale = CGFloat(0.0002)
     let rockVelocityScale = CGFloat(0.3)
     let initialShieldOffset = CGFloat(-1.82)
@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let separatorLabelYPosOffset = CGFloat(-3)
     let unitTimeInterval = TimeInterval(1)
     
-    
+    //need : high score label, touch to restart label, need to set high score initially to 0
     
     enum CollisionType: UInt32 {
         case Rock = 1
@@ -49,16 +49,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
+        timer = totalTimeAllowed
         halfFrameDiagnal = sqrt(pow(self.frame.size.width / 2, 2) + pow(self.frame.size.height / 2, 2))
         diagnalAngle = tanh(self.frame.size.width / self.frame.size.height)
         centerPoint = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        //timerNode.zPosition = -1
-        //testing
-        //let testEarth = SKShapeNode(circleOfRadius: 10)
-        //testEarth.fillColor = SKColor.blue
-        //testEarth.strokeColor = SKColor.clear
-        //testEarth.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        //finished testing
         
         //texture settings
         let earthTexture = SKTexture(imageNamed: "EarthFG.png")
@@ -129,9 +123,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(separatorLabel)
         //self.frame:width = 750, height = 1334
         
-        //print(timerLabel.position)
-        //print(timerLabel.fontName!)
-        //print(timerLabel.fontSize)
         //testing
         //self.addChild(testEarth)
         //finished testing
@@ -147,16 +138,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rock.physicsBody!.contactTestBitMask = CollisionType.Earth.rawValue | CollisionType.Shield.rawValue
         rock.physicsBody!.collisionBitMask = CollisionType.Earth.rawValue | CollisionType.Shield.rawValue
         
-        
-        //object = originalObject.copy()
         rock.position = Pos
         let velocity = CGVector(dx: (self.frame.midX - Pos.x) * rockVelocityScale, dy: (self.frame.midY - Pos.y) * rockVelocityScale)
         rock.physicsBody!.velocity = velocity
         self.addChild(rock)
-        //print("spawned a new rock at \(Pos)) with velocity of \(velocity)")
-        //object.position.x += 30
-        //self.addChild(object)
-        //print(object.physicsBody!.velocity)
     }
     
     func spawnRockRandomly() {
@@ -184,23 +169,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return CGPoint(x: xPos, y: yPos)
     }
     
-
+    func saveHighScore() {
+        
+    }
     
     func toggleRotationClockwise(object: SKSpriteNode) {
         object.zRotation -= rotationAngle
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        
-        if contact.bodyA.categoryBitMask == CollisionType.Shield.rawValue && contact.bodyB.node?.parent != nil {
-            score += 1
-            scoreLabel.text = "\(score)"
-        } else if contact.bodyA.categoryBitMask == CollisionType.Earth.rawValue && contact.bodyB.node?.parent != nil && gameInProgress {
-            score -= 1
-            scoreLabel.text = "\(score)"
+        if contact.bodyA.categoryBitMask == CollisionType.Rock.rawValue {
+            if contact.bodyB.categoryBitMask == CollisionType.Shield.rawValue && contact.bodyA.node?.parent != nil {
+                score += 1
+                scoreLabel.text = "\(score)"
+                contact.bodyA.node?.removeFromParent()
+            } else if contact.bodyB.categoryBitMask == CollisionType.Earth.rawValue && contact.bodyA.node?.parent != nil {
+                if gameInProgress {
+                    score -= 1
+                    scoreLabel.text = "\(score)"
+                }
+                contact.bodyA.node?.removeFromParent()
+            }
+        } else if contact.bodyB.categoryBitMask == CollisionType.Rock.rawValue {
+            if contact.bodyA.categoryBitMask == CollisionType.Shield.rawValue && contact.bodyB.node?.parent != nil {
+                score += 1
+                scoreLabel.text = "\(score)"
+                contact.bodyB.node?.removeFromParent()
+            } else if contact.bodyA.categoryBitMask == CollisionType.Earth.rawValue && contact.bodyB.node?.parent != nil {
+                if gameInProgress {
+                    score -= 1
+                    scoreLabel.text = "\(score)"
+                }
+                contact.bodyB.node?.removeFromParent()
+            }
         }
-        contact.bodyB.node?.removeFromParent()
-        //spawnObjectWithVelocity(originalObject: rock, initialPos: CGPoint(x: self.frame.midX - self.frame.width / 2, y: self.frame.midY - self.frame.height / 2))
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -225,7 +227,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let separatorLabelFade = SKAction.fadeAlpha(to: 0, duration: 0.3)
                 let scoreUpLift = SKAction.moveBy(x: self.score >= 0 ? 0 : -10, y: 16, duration: 0.3)
                 let scoreEmphasize = SKAction.scale(to: 1.5, duration: 0.5)
-                let scoreActionSet = SKAction.sequence([scoreUpLift, scoreEmphasize])
+                let waitForRockToDisappear = SKAction.wait(forDuration: 3)
+                let scoreActionSet = SKAction.sequence([scoreUpLift, scoreEmphasize, waitForRockToDisappear])
                 self.earthShield.run(shieldRetract, completion: {
                     self.earthShield.removeFromParent()
                 })
@@ -236,9 +239,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.separatorLabel.removeFromParent()
                 })
                 self.scoreLabel.run(scoreActionSet, completion: {
-                    self.readyForRestart = true
+                    
+                    //add label saying tap to restart, and high score label
+                    
+                    self.readyForRestart = true // might need to put this to new action
                 })
-                print(self.scoreLabel.xScale)
+                
                 
             }
             self.timer -= 1
@@ -293,8 +299,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.timerStarts()
             })
         }
-        if !gameInProgress {
-            
+        if touchInProgress && !gameInProgress && readyForRestart{
+            readyForRestart = false
+            saveHighScore()
+            score = 0
+            scoreLabel.text = "\(score)"
+            timer = totalTimeAllowed
+            timerLabel.text = "\(timer)"
+            //remove high score label, touch to restart label and
+            // restore shield, timer, separator and score, enable touch to spawn red
+            //kicks timer
+            let shieldRestoration = SKAction.scale(to: self.earth.xScale, duration: 0.6)
+            let timerAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
+            let separatorAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
+            let scoreMoveDown = SKAction.moveBy(x: 0, y: -16, duration: 0.3)
+            let scoreShrink = SKAction.scale(to: 1, duration: 0.3)
+            let waitForAllAnimation = SKAction.wait(forDuration: 1)
+            let scoreActionSet = SKAction.sequence([scoreMoveDown, scoreShrink, waitForAllAnimation])
+            timerLabel.alpha = 0
+            separatorLabel.alpha = 0
+            earthShield.xScale = 0
+            self.addChild(timerLabel)
+            self.addChild(separatorLabel)
+            self.addChild(earthShield)
+
+            earthShield.run(shieldRestoration)
+            timerLabel.run(timerAppear)
+            separatorLabel.run(separatorAppear)
+            //earthShield.
+            scoreLabel.run(scoreActionSet, completion: {
+                self.gameInProgress = true
+                self.spawnRockRandomly()
+                self.timerStarts()
+            })
         }
         // Called before each frame is rendered
         if touchInProgress && gameInProgress {
