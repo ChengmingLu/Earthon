@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044699491E5DF4FA0074CC91 /* StartScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 044699481E5DF4FA0074CC91 /* StartScreen.png */; };
 		04668E7D1E5AB200009D938C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04668E7C1E5AB200009D938C /* AppDelegate.swift */; };
 		04668E7F1E5AB200009D938C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04668E7E1E5AB200009D938C /* GameScene.sks */; };
 		04668E811E5AB200009D938C /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04668E801E5AB200009D938C /* Actions.sks */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		044699481E5DF4FA0074CC91 /* StartScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartScreen.png; sourceTree = "<group>"; };
 		04668E791E5AB200009D938C /* Earthon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Earthon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04668E7C1E5AB200009D938C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04668E7E1E5AB200009D938C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				04F93BA91E5B55AD003CAFC8 /* EarthFG.png */,
 				04F2ADEA1E5CD597003F469F /* StartButton.png */,
 				048DA10B1E5BC60500CB3AC2 /* Rock.png */,
+				044699481E5DF4FA0074CC91 /* StartScreen.png */,
 			);
 			name = Earthon;
 			path = Unprotected;
@@ -158,6 +161,7 @@
 				04668E8D1E5AB200009D938C /* LaunchScreen.storyboard in Resources */,
 				04668E811E5AB200009D938C /* Actions.sks in Resources */,
 				04F93BAD1E5B55AD003CAFC8 /* EarthFG.png in Resources */,
+				044699491E5DF4FA0074CC91 /* StartScreen.png in Resources */,
 				04F93BAC1E5B55AD003CAFC8 /* EarthBG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,7 +299,7 @@
 				DEVELOPMENT_TEAM = MN3T7WEAXR;
 				INFOPLIST_FILE = Unprotected/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon1234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -308,7 +312,7 @@
 				DEVELOPMENT_TEAM = MN3T7WEAXR;
 				INFOPLIST_FILE = Unprotected/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon1234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
