@@ -18,23 +18,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var timerLabel = SKLabelNode()
     var scoreLabel = SKLabelNode()
     var separatorLabel = SKLabelNode()
+    
+    var contactDetectionActive = false
+    
+    //test
+    var allContactCount = Int(0)
+    var shieldContactCount = Int(0)
+    var numberOfTouchesOrRockSpawns = Int(0)
+    var rockCount = Int(0)
+    
+    
     //var rock = SKSpriteNode()
     var rockTexture = SKTexture()
     var timerNode = SKNode()
     var rockVelocity = CGFloat()
-    var rockSpawnInterval = TimeInterval(5.0)
+    //var rockSpawnInterval = TimeInterval(5.0)
     var halfFrameDiagnal = CGFloat()
     var dynamicDifficulty = CGFloat()
-    var timer = CGFloat(0)
+    var timer = CGFloat(60)
+    var score = Int(0)
     var diagnalAngle = CGFloat()
     let objectRelativeScale = CGFloat(0.0002)
     let rockVelocityScale = CGFloat(0.3)
     let initialShieldOffset = CGFloat(-1.82)
     let rotationAngle = CGFloat(M_PI / 32)
-    let rotationDuration = TimeInterval(3)
+    //let rotationDuration = TimeInterval(3)
     let timerLabelYPosOffset = CGFloat(6)
-    let scoreLabelYPosOffset = CGFloat(-40)
+    let scoreLabelYPosOffset = CGFloat(-37)
     let separatorLabelYPosOffset = CGFloat(-3)
+    let unitTimeInterval = TimeInterval(1)
+    
+    
     
     enum CollisionType: UInt32 {
         case Rock = 1
@@ -110,9 +124,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //self.frame:width = 750, height = 1334
         
-        print(timerLabel.position)
-        print(timerLabel.fontName!)
-        print(timerLabel.fontSize)
+        //print(timerLabel.position)
+        //print(timerLabel.fontName!)
+        //print(timerLabel.fontSize)
         //testing
         //self.addChild(testEarth)
         //finished testing
@@ -144,6 +158,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let randomDegree = CGFloat(2 * M_PI * drand48())
         let randomizedSpawnPoint = degreeToRandomizedPointOnRectangle(degreeInRadians: randomDegree, radius: halfFrameDiagnal)
         spawnRockWithVelocity(Pos: randomizedSpawnPoint)
+        rockCount += 1
+        print("rocks spawned in total: \(rockCount)")
     //
     }
     
@@ -173,38 +189,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.categoryBitMask == CollisionType.Shield.rawValue {
-            //print("blocked by shield")
+        print(contact.bodyA)
+        print(contact.bodyA.node?.name ?? "noname for A")
+        print("_______________________________")
+        print(contact.bodyB)
+        print(contact.bodyB.node?.name ?? "noname for B")
+        
+        if contactDetectionActive {
+            contactDetectionActive = false
+            if contact.bodyA.categoryBitMask == CollisionType.Shield.rawValue {
+                //print("blocked by shield")
+                
+                score += 1
+                scoreLabel.text = "\(score)"
+                contactDetectionActive = true
+                shieldContactCount += 1
+                print("shield contact: \(shieldContactCount)")
+            } else if contact.bodyA.categoryBitMask == CollisionType.Earth.rawValue {
+                //contactDetectionActive = false
+                //print("absorbed by earth")
+            }
         }
-        if contact.bodyA.categoryBitMask == CollisionType.Earth.rawValue {
-            //print("absorbed by earth")
-        }
+
+        allContactCount += 1
+        print("global contact count: \(allContactCount)")
         contact.bodyB.node?.removeFromParent()
         //spawnObjectWithVelocity(originalObject: rock, initialPos: CGPoint(x: self.frame.midX - self.frame.width / 2, y: self.frame.midY - self.frame.height / 2))
     }
     
     func touchDown(atPoint pos : CGPoint) {
-
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-
     }
     
-    
     func touchUp(atPoint pos : CGPoint) {
-
     }
     
     func gameStarts() {
-        var wait = SKAction.wait(forDuration: self.rockSpawnInterval)
+        let wait = SKAction.wait(forDuration: unitTimeInterval)
         let run = SKAction.run {
-            self.timer += CGFloat(self.rockSpawnInterval)
-            if self.rockSpawnInterval > 1 {
-                self.rockSpawnInterval -= 0.05
-            }
-            wait = SKAction.wait(forDuration: self.rockSpawnInterval)
-            self.spawnRockRandomly()
+            //self.timer += CGFloat(self.rockSpawnInterval)
+
+            //wait = SKAction.wait(forDuration: self.rockSpawnInterval)
+            //self.spawnRockRandomly()
         }
         self.run(SKAction.repeatForever(SKAction.sequence([wait, run])))
         
@@ -219,8 +247,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchInProgress = true
+        numberOfTouchesOrRockSpawns += 1
+        print("touches: \(numberOfTouchesOrRockSpawns)")
         if gameInProgress {
             spawnRockRandomly()
+            //contactDetectionActive = true
         }
     }
     
@@ -244,6 +275,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.addChild(separatorLabel)
             self.addChild(timerLabel)
             startButton.removeFromParent()
+            contactDetectionActive = true
             //gameStarts()
         }
         // Called before each frame is rendered

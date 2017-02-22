@@ -19,8 +19,6 @@
 		04F2ADEB1E5CD597003F469F /* StartButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F2ADEA1E5CD597003F469F /* StartButton.png */; };
 		04F93BAC1E5B55AD003CAFC8 /* EarthBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BA81E5B55AD003CAFC8 /* EarthBG.png */; };
 		04F93BAD1E5B55AD003CAFC8 /* EarthFG.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BA91E5B55AD003CAFC8 /* EarthFG.png */; };
-		04F93BAE1E5B55AD003CAFC8 /* EarthShieldDouble.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BAA1E5B55AD003CAFC8 /* EarthShieldDouble.png */; };
-		04F93BAF1E5B55AD003CAFC8 /* EarthShieldSingle.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F93BAB1E5B55AD003CAFC8 /* EarthShieldSingle.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +36,6 @@
 		04F2ADEA1E5CD597003F469F /* StartButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartButton.png; sourceTree = "<group>"; };
 		04F93BA81E5B55AD003CAFC8 /* EarthBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthBG.png; sourceTree = "<group>"; };
 		04F93BA91E5B55AD003CAFC8 /* EarthFG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthFG.png; sourceTree = "<group>"; };
-		04F93BAA1E5B55AD003CAFC8 /* EarthShieldDouble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthShieldDouble.png; sourceTree = "<group>"; };
-		04F93BAB1E5B55AD003CAFC8 /* EarthShieldSingle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarthShieldSingle.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +79,6 @@
 				04668E8E1E5AB200009D938C /* Info.plist */,
 				04F93BA81E5B55AD003CAFC8 /* EarthBG.png */,
 				04F93BA91E5B55AD003CAFC8 /* EarthFG.png */,
-				04F93BAA1E5B55AD003CAFC8 /* EarthShieldDouble.png */,
-				04F93BAB1E5B55AD003CAFC8 /* EarthShieldSingle.png */,
 				04F2ADEA1E5CD597003F469F /* StartButton.png */,
 				048DA10B1E5BC60500CB3AC2 /* Rock.png */,
 			);
@@ -152,7 +146,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04F93BAE1E5B55AD003CAFC8 /* EarthShieldDouble.png in Resources */,
 				04668E881E5AB200009D938C /* Main.storyboard in Resources */,
 				048DA10C1E5BC60500CB3AC2 /* Rock.png in Resources */,
 				04668E7F1E5AB200009D938C /* GameScene.sks in Resources */,
@@ -161,7 +154,6 @@
 				04668E8D1E5AB200009D938C /* LaunchScreen.storyboard in Resources */,
 				04668E811E5AB200009D938C /* Actions.sks in Resources */,
 				04F93BAD1E5B55AD003CAFC8 /* EarthFG.png in Resources */,
-				04F93BAF1E5B55AD003CAFC8 /* EarthShieldSingle.png in Resources */,
 				04F93BAC1E5B55AD003CAFC8 /* EarthBG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
