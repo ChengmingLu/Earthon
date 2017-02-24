@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -124,13 +124,12 @@
 				TargetAttributes = {
 					04668E781E5AB1FF009D938C = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = MN3T7WEAXR;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 04668E741E5AB1FF009D938C /* Build configuration list for PBXProject "Earthon" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -296,12 +295,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MN3T7WEAXR;
+				DEVELOPMENT_TEAM = DX2Q72UENJ;
 				INFOPLIST_FILE = Unprotected/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon1234;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -309,12 +310,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MN3T7WEAXR;
+				DEVELOPMENT_TEAM = DX2Q72UENJ;
 				INFOPLIST_FILE = Unprotected/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon1234;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fulmar.Earthon1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -34,11 +34,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var diagnalAngle = CGFloat()
     var totalTimeAllowed = 60
     var highScore = UserDefaults().integer(forKey: "HighScore")
+    var rotateClockwise = true
     
     let objectRelativeScale = CGFloat(0.0002)
     let rockVelocityScale = CGFloat(0.3)
     let initialShieldOffset = CGFloat(-1.82)
-    let rotationAngle = CGFloat(M_PI / 32)
+    let rotationAngle = CGFloat(M_PI / 48)
     let timerLabelYPosOffset = CGFloat(6)
     let scoreLabelYPosOffset = CGFloat(-37)
     let separatorLabelYPosOffset = CGFloat(-3)
@@ -85,7 +86,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.text = "0"
         separatorLabel.text = "___"
         tapToRestartLabel.text = "Tap to restart"
-        hintLabel.text = "Hint: Press and hold anywhere to rotate the shield clockwise. Each press also generates a rock."
+        hintLabel.text = "Hint: Press and hold to rotate the shield. Each press also generates one rock."
         highScoreLabel.text = "High score: \(UserDefaults().integer(forKey: "HighScore"))"
         
         //position, zposition and scale settings
@@ -211,6 +212,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         object.zRotation -= rotationAngle
     }
     
+    func toggleRotationCounterClockwise(object: SKSpriteNode) {
+        object.zRotation += rotationAngle
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == CollisionType.Rock.rawValue {
             if contact.bodyB.categoryBitMask == CollisionType.Shield.rawValue && contact.bodyA.node?.parent != nil {
@@ -298,21 +303,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.run(repeatedAction, withKey: "TimerAction")
         
     }
-    func gameEnds() {
-        self.removeAllActions()
-        
-    }
-    func gameResets() {
-        
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchInProgress = true
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.location(in: self)
+        if touchLocation.x <= 0 {
+            rotateClockwise = false
+        } else {
+            rotateClockwise = true
+        }
         if gameInProgress {
             spawnRockRandomly()
         }
     }
-    
     
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -364,19 +368,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let hintFade = SKAction.fadeAlpha(to: 0, duration: 0.3)
             let highScoreFade = SKAction.fadeAlpha(to: 0, duration: 0.3)
             let scoreMoveDown = SKAction.moveBy(x: scoreBackup >= 0 ? 0 : 10, y: -16, duration: 0.3)
-            let scoreShrink = SKAction.scale(to: 1, duration: 0.3)
+            let scoreShrink = SKAction.scale(to: 1, duration: 0.5)
             //let waitForAllAnimation = SKAction.wait(forDuration: 1)
-            let scoreActionSet = SKAction.sequence([scoreMoveDown, scoreShrink])
+            //let scoreActionSet = SKAction.sequence([scoreMoveDown, scoreShrink])
             timerLabel.alpha = 0
             separatorLabel.alpha = 0
             earthShield.xScale = 0
-            self.addChild(timerLabel)
-            self.addChild(separatorLabel)
-            self.addChild(earthShield)
-
             earthShield.run(shieldRestoration)
-            timerLabel.run(timerAppear)
-            separatorLabel.run(separatorAppear)
             tapToRestartLabel.run(tapToRestartFade, completion: { 
                 self.tapToRestartLabel.removeFromParent()
             })
@@ -387,17 +385,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.hintLabel.removeFromParent()
             })
             
-            
-            //earthShield.
-            scoreLabel.run(scoreActionSet, completion: {
-                self.gameInProgress = true
-                //self.spawnRockRandomly()
-                self.timerStarts()
+            self.addChild(timerLabel)
+            self.addChild(separatorLabel)
+            self.addChild(earthShield)
+            scoreLabel.run(scoreShrink, completion: {
+                self.scoreLabel.run(scoreMoveDown, completion: {
+                    self.timerLabel.run(timerAppear)
+                    self.separatorLabel.run(separatorAppear, completion: {
+                        self.gameInProgress = true
+                        self.timerStarts()
+                    })
+                })
             })
+
         }
         // Called before each frame is rendered
         if touchInProgress && gameInProgress {
-            toggleRotationClockwise(object: earthShield)
+            if rotateClockwise {
+                toggleRotationClockwise(object: earthShield)
+            } else {
+                toggleRotationCounterClockwise(object: earthShield)
+            }
         }
     }
 }
