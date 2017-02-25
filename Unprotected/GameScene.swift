@@ -14,6 +14,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameInProgress = false
     var readyForRestart = false
     var beforeStart = true
+    var rotateClockwise = true
+    var forceRestartTriggered = false
     var earth = SKSpriteNode()
     var earthShield = SKSpriteNode()
     var startButton = SKSpriteNode()
@@ -23,6 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var tapToRestartLabel = SKLabelNode()
     var hintLabel = SKLabelNode()
     var highScoreLabel = SKLabelNode()
+    var forceRestartLabel = SKLabelNode()
     var centerPoint = CGPoint()
     var rockTexture = SKTexture()
     var timerNode = SKNode()
@@ -34,7 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var diagnalAngle = CGFloat()
     var totalTimeAllowed = 60
     var highScore = UserDefaults().integer(forKey: "HighScore")
-    var rotateClockwise = true
+    
     
     let objectRelativeScale = CGFloat(0.0002)
     let rockVelocityScale = CGFloat(0.3)
@@ -46,6 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let tapToRestartLabelYPosOffset = CGFloat(-120)
     let hintLabelYOffset = CGFloat(-160)
     let highScoreLabelYPosOffset = CGFloat(115)
+    let forceRestartLabelYPosOffset = CGFloat(-180)
     let unitTimeInterval = TimeInterval(1)
     //let hintHiddenThreshold = Int(15)
     
@@ -82,12 +86,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tapToRestartLabel = SKLabelNode(fontNamed: "AppleSDGothicNeo-Regular")
         hintLabel = SKLabelNode(fontNamed: "AppleSDGothicNeo-Regular")
         highScoreLabel = SKLabelNode(fontNamed: "AppleSDGothicNeo-Regular")
+        forceRestartLabel = SKLabelNode(fontNamed: "AppleSDGothicNeo-Regular")
         timerLabel.text = "\(timer)"
         scoreLabel.text = "0"
         separatorLabel.text = "___"
         tapToRestartLabel.text = "Tap to restart"
         hintLabel.text = "Hint: Press and hold to rotate the shield. Each press also generates one rock."
         highScoreLabel.text = "High score: \(UserDefaults().integer(forKey: "HighScore"))"
+        forceRestartLabel.text = "Tap on the earth during the game to abandon your current score and restart."
         
         //position, zposition and scale settings
         earth.position = centerPoint
@@ -115,6 +121,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highScoreLabel.position = centerPoint
         highScoreLabel.position.y += highScoreLabelYPosOffset
         highScoreLabel.zPosition = 6
+        forceRestartLabel.position = centerPoint
+        forceRestartLabel.position.y += forceRestartLabelYPosOffset
+        forceRestartLabel.zPosition = 6
         
         earth.setScale(self.frame.size.width * objectRelativeScale)
         startButton.setScale(earth.xScale)
@@ -140,11 +149,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tapToRestartLabel.alpha = 0
         hintLabel.alpha = 0
         highScoreLabel.alpha = 0
+        forceRestartLabel.alpha = 0
         
         //initial font settings
         tapToRestartLabel.fontSize = 15
         hintLabel.fontSize = 15
         highScoreLabel.fontSize = 15
+        forceRestartLabel.fontSize = 15
         
         //adding initial nodes
         earthShield.setScale(0)
@@ -155,11 +166,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(timerLabel)
         self.addChild(scoreLabel)
         self.addChild(separatorLabel)
-        
-        self.addChild(self.hintLabel)
+        self.addChild(hintLabel)
+        self.addChild(forceRestartLabel)
         let hintLabelAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
+        let forceRestartLabelAppear = hintLabelAppear
         self.hintLabel.run(hintLabelAppear)
+        self.forceRestartLabel.run(forceRestartLabelAppear)
+        
         //self.frame:width = 750, height = 1334
+        
+        //print(earth.size)
     }
     
     func spawnRockWithVelocity(Pos: CGPoint) {
@@ -206,6 +222,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func saveHighScore() {
         UserDefaults.standard.set(score, forKey: "HighScore")
         highScoreLabel.text = "High score: \(UserDefaults().integer(forKey: "HighScore"))"
+    }
+    
+    func triggerForcedRestart() {
+        forceRestartTriggered = true
+        timer = 1
     }
     
     func toggleRotationClockwise(object: SKSpriteNode) {
@@ -258,9 +279,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let run = SKAction.run {
             if self.timer <= 1 {
                 self.timerLabel.text = "0"
+                if self.forceRestartTriggered {
+                    self.scoreLabel.text = "Aborted"
+                }
                 self.gameInProgress = false
                 self.removeAction(forKey: "TimerAction")
-                if self.score > UserDefaults().integer(forKey: "HighScore") {
+                if !self.forceRestartTriggered && self.score > UserDefaults().integer(forKey: "HighScore") {
                     self.saveHighScore()
                 }
                 //self.removeAllActions()
@@ -269,9 +293,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let separatorLabelFade = SKAction.fadeAlpha(to: 0, duration: 0.3)
                 let tapToRestartLabelAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
                 let hintLabelAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
+                let forceRestartLabelAppear = hintLabelAppear
                 let highScoreLabelAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
-                let scoreUpLift = SKAction.moveBy(x: self.score >= 0 ? 0 : -10, y: 16, duration: 0.3)
-                let scoreEmphasize = SKAction.scale(to: 1.5, duration: 0.5)
+                let scoreUpLift = SKAction.moveBy(x: self.score >= 0 ? 0 : -10, y: self.forceRestartTriggered ? 20 : 16, duration: 0.3)
+                let scoreEmphasize = SKAction.scale(to: self.forceRestartTriggered ? 1.0 : 1.5, duration: 0.5)
                 let waitForRockToDisappear = SKAction.wait(forDuration: 3.5)
                 let scoreActionSet = SKAction.sequence([scoreUpLift, scoreEmphasize, waitForRockToDisappear])
             
@@ -291,9 +316,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //add label saying tap to restart, and high score label
                     self.addChild(self.tapToRestartLabel)
                     self.addChild(self.hintLabel)
+                    self.addChild(self.forceRestartLabel)
                     self.hintLabel.run(hintLabelAppear)
                     self.tapToRestartLabel.run(tapToRestartLabelAppear)
-                    self.readyForRestart = true // might need to put this to new action
+                    self.forceRestartLabel.run(forceRestartLabelAppear)
+                    self.readyForRestart = true
                 })
             }
             self.timer -= 1
@@ -308,11 +335,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         touchInProgress = true
         let touch = touches.first! as UITouch
         let touchLocation = touch.location(in: self)
+        if  gameInProgress && earth.contains(touchLocation) {
+            triggerForcedRestart()
+        }
         if touchLocation.x <= 0 {
             rotateClockwise = false
         } else {
             rotateClockwise = true
         }
+    
         if gameInProgress {
             spawnRockRandomly()
         }
@@ -338,8 +369,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let separatorAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
             let scoreAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
             let hintFade = SKAction.fadeAlpha(to: 0, duration: 0.3)
+            let forceRestartHintLabelFade = hintFade
             hintLabel.run(hintFade, completion: {
                 self.hintLabel.removeFromParent()
+            })
+            forceRestartLabel.run(forceRestartHintLabelFade, completion: { 
+                self.forceRestartLabel.removeFromParent()
             })
             startButton.run(startButtonScale, completion: {
                 self.startButton.removeFromParent()
@@ -366,8 +401,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let separatorAppear = SKAction.fadeAlpha(to: 1, duration: 0.3)
             let tapToRestartFade = SKAction.fadeAlpha(to: 0, duration: 0.3)
             let hintFade = SKAction.fadeAlpha(to: 0, duration: 0.3)
+            let forceRestartHintFade = hintFade
             let highScoreFade = SKAction.fadeAlpha(to: 0, duration: 0.3)
-            let scoreMoveDown = SKAction.moveBy(x: scoreBackup >= 0 ? 0 : 10, y: -16, duration: 0.3)
+            let scoreMoveDown = SKAction.moveBy(x: scoreBackup >= 0 ? 0 : 10, y: forceRestartTriggered ? -20 : -16, duration: 0.3)
             let scoreShrink = SKAction.scale(to: 1, duration: 0.5)
             //let waitForAllAnimation = SKAction.wait(forDuration: 1)
             //let scoreActionSet = SKAction.sequence([scoreMoveDown, scoreShrink])
@@ -384,6 +420,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             hintLabel.run(hintFade, completion: {
                 self.hintLabel.removeFromParent()
             })
+            forceRestartLabel.run(forceRestartHintFade, completion: { 
+                self.forceRestartLabel.removeFromParent()
+            })
             
             self.addChild(timerLabel)
             self.addChild(separatorLabel)
@@ -393,6 +432,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.timerLabel.run(timerAppear)
                     self.separatorLabel.run(separatorAppear, completion: {
                         self.gameInProgress = true
+                        self.forceRestartTriggered = false
                         self.timerStarts()
                     })
                 })
