@@ -91,7 +91,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.text = "0"
         separatorLabel.text = "___"
         tapToRestartLabel.text = "Tap to restart"
-        hintLabel.text = "Hint: Press and hold to rotate the shield. Each press also generates one rock."
+        hintLabel.text = "Hint: Tap and hold to rotate the shield. Each tap also generates one rock."
         highScoreLabel.text = "High score: \(UserDefaults().integer(forKey: "HighScore"))"
         forceRestartLabel.text = "Tap on the earth during the game to abandon your current score and restart."
         
