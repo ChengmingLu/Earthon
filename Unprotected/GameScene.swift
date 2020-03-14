@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let objectRelativeScale = CGFloat(0.0002)
     let rockVelocityScale = CGFloat(0.3)
     let initialShieldOffset = CGFloat(-1.82)
-    let rotationAngle = CGFloat(M_PI / 48)
+    let rotationAngle = CGFloat(Double.pi / 48)
     let timerLabelYPosOffset = CGFloat(6)
     let scoreLabelYPosOffset = CGFloat(-37)
     let separatorLabelYPosOffset = CGFloat(-3)
@@ -179,7 +179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func spawnRockRandomly() {
-        let randomDegree = CGFloat(2 * M_PI * drand48())
+        let randomDegree = CGFloat(2 * Double.pi * drand48())
         let randomizedSpawnPoint = degreeToRandomizedPointOnRectangle(degreeInRadians: randomDegree, radius: halfFrameDiagnal)
         spawnRockWithVelocity(Pos: randomizedSpawnPoint)
     }
@@ -187,13 +187,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func degreeToRandomizedPointOnRectangle(degreeInRadians: CGFloat, radius: CGFloat) -> CGPoint {
         var xPos = CGFloat()
         var yPos = CGFloat()
-        if degreeInRadians > CGFloat(2 * M_PI) - diagnalAngle || degreeInRadians <= diagnalAngle {
+        if degreeInRadians > CGFloat(2 * Double.pi) - diagnalAngle || degreeInRadians <= diagnalAngle {
             xPos = self.frame.size.height / 2
             yPos = xPos * tan(degreeInRadians)
-        } else if degreeInRadians > diagnalAngle && degreeInRadians <= CGFloat(M_PI) - diagnalAngle {
+        } else if degreeInRadians > diagnalAngle && degreeInRadians <= CGFloat(Double.pi) - diagnalAngle {
             yPos = self.frame.size.width / 2
             xPos = yPos / tan(degreeInRadians)
-        } else if degreeInRadians > CGFloat(M_PI) - diagnalAngle && degreeInRadians <= CGFloat(M_PI) + diagnalAngle {
+        } else if degreeInRadians > CGFloat(Double.pi) - diagnalAngle && degreeInRadians <= CGFloat(Double.pi) + diagnalAngle {
             xPos = -self.frame.size.height / 2
             yPos = xPos * tan(degreeInRadians)
         } else {
