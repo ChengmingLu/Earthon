@@ -44,7 +44,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let scoreLabelYPosOffset = CGFloat(-37)
     let separatorLabelYPosOffset = CGFloat(-3)
     let tapToRestartLabelYPosOffset = CGFloat(-120)
-    let hintLabelYOffset = CGFloat(-160)
+    let hintLabelYOffset = CGFloat(-145)
     let highScoreLabelYPosOffset = CGFloat(115)
     let unitTimeInterval = TimeInterval(1)
     //let hintHiddenThreshold = Int(15)
